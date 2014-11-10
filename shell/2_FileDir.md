@@ -18,7 +18,7 @@ title: Files and Directories
 </div>
 
 The part of the operating system responsible for managing files and directories
-is called the [file system](../gloss.md#filesystem).
+is called the [file system](../gloss#filesystem).
 It organizes our data into files,
 which hold information,
 and directories (also called "folders"),
@@ -33,7 +33,7 @@ $
 ~~~
 {:class="in"}
 
-The dollar sign is a [prompt](../gloss.md#prompt),
+The dollar sign is a [prompt](../gloss#prompt),
 which shows us that the shell is waiting for input;
 your shell may show something more elaborate.
 
@@ -63,14 +63,14 @@ Next,
 let's find out where we are by running a command called `pwd`
 (which stands for "print working directory").
 At any moment,
-our [current working directory](../gloss.md#current-working-directory)
+our [current working directory](../gloss#current-working-directory)
 is our current default directory,
 i.e.,
 the directory that the computer assumes we want to run commands in
 unless we explicitly specify something else.
 Here,
 the computer's response is `/users/nelle`,
-which is Nelle's [home directory](../gloss.md#home-directory):
+which is Nelle's [home directory](../gloss#home-directory):
 
 ~~~
 $ pwd
@@ -96,7 +96,7 @@ $ pwd
 
 To understand what a "home directory" is,
 let's have a look at how the file system as a whole is organized.
-At the top is the [root directory](../gloss.md#root-directory)
+At the top is the [root directory](../gloss#root-directory)
 that holds everything else.
 We refer to it using a slash character `/` on its own;
 this is the leading slash in `/users/nelle`.
@@ -148,7 +148,7 @@ Desktop    notes.txt           writing
 
 `ls` prints the names of the files and directories in the current directory in alphabetical order,
 arranged neatly into columns.
-We can make its output more comprehensible by using the [flag](../gloss.md#flag) `-F`,
+We can make its output more comprehensible by using the [flag](../gloss#flag) `-F`,
 which tells `ls` to add a trailing `/` to the names of directories:
 
 ~~~
@@ -163,7 +163,7 @@ Desktop/    notes.txt            writing/
 {:class="out"}
 
 Here,
-we can see that `/users/nelle` contains seven [sub-directories](../gloss.md#sub-directory).
+we can see that `/users/nelle` contains seven [sub-directories](../gloss#sub-directory).
 The names that don't have trailing slashes,
 like `notes.txt`, `pizza.cfg`, and `solar.pdf`,
 are plain old files.
@@ -179,7 +179,7 @@ which doesn't exist.
 > almost anything else we want. However, most people use two-part names
 > most of the time to help them (and their programs) tell different kinds
 > of files apart. The second part of such a name is called the
-> [filename extension](../gloss.md#filename-extension), and indicates
+> [filename extension](../gloss#filename-extension), and indicates
 > what type of data the file holds: `.txt` signals a plain text file, `.pdf`
 > indicates a PDF document, `.cfg` is a configuration file full of parameters
 > for some program or other, and so on.
@@ -195,7 +195,7 @@ which doesn't exist.
 
 Now let's take a look at what's in Nelle's `data` directory by running `ls -F data`,
 i.e.,
-the command `ls` with the [arguments](../gloss.md#argument) `-F` and `data`.
+the command `ls` with the [arguments](../gloss#argument) `-F` and `data`.
 The second argument&mdash;the one *without* a leading dash&mdash;tells `ls` that
 we want a listing of something other than our current working directory:
 
@@ -218,14 +218,14 @@ but it's a self-defeating strategy.
 Notice, by the way that we spelled the directory name `data`.
 It doesn't have a trailing slash:
 that's added to directory names by `ls` when we use the `-F` flag to help us tell things apart.
-And it doesn't begin with a slash because it's a [relative path](../gloss.md#relative-path),
+And it doesn't begin with a slash because it's a [relative path](../gloss#relative-path),
 i.e., it tells `ls` how to find something from where we are,
 rather than from the root of the file system.
 
 > #### Parameters vs. Arguments
 >
 > According to [Wikipedia](https://en.wikipedia.org/wiki/Parameter_(computer_programming)#Parameters_and_arguments),
-> the terms [argument](../gloss.md#argument) and [parameter](../gloss.md#parameter)
+> the terms [argument](../gloss#argument) and [parameter](../gloss#parameter)
 > mean slightly different things.
 > In practice,
 > however,
@@ -233,7 +233,7 @@ rather than from the root of the file system.
 > so we will too.
 
 If we run `ls -F /data` (*with* a leading slash) we get a different answer,
-because `/data` is an [absolute path](../gloss.md#absolute-path):
+because `/data` is an [absolute path](../gloss#absolute-path):
 
 ~~~
 $ ls -F /data
@@ -335,7 +335,7 @@ $ cd ..
 `..` is a special directory name meaning
 "the directory containing this one",
 or more succinctly,
-the [parent](../gloss.md#parent-directory) of the current directory.
+the [parent](../gloss#parent-directory) of the current directory.
 Sure enough,
 if we run `pwd` after running `cd ..`, we're back in `/users/nelle`:
 
@@ -380,7 +380,7 @@ but we'll see some uses for it soon.
 > if we are in `/users/nelle/data`,
 > the command `ls ..` will give us a listing of `/users/nelle`.
 > When the meanings of the parts are the same no matter how they're combined,
-> programmers say they are [orthogonal](../gloss.md#orthogonal):
+> programmers say they are [orthogonal](../gloss#orthogonal):
 > Orthogonal systems tend to be easier for people to learn
 > because there are fewer special cases and exceptions to keep track of.
 
@@ -449,7 +449,7 @@ Pressing tab again does nothing,
 since there are 1520 possibilities;
 pressing tab twice brings up a list of all the files,
 and so on.
-This is called [tab completion](../gloss.md#tab-completion),
+This is called [tab completion](../gloss#tab-completion),
 and we will see it in many other tools as we go on.
 
 <div class="keypoints" markdown="1">
