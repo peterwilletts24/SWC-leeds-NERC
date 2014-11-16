@@ -63,15 +63,17 @@ and prints the error message provided.
 For example,
 this piece of code halts as soon as the loop encounters a value that isn't positive:
 
-
-<pre class="in"><code>numbers = [1.5, 2.3, 0.7, -0.001, 4.4]
+```
+numbers = [1.5, 2.3, 0.7, -0.001, 4.4]
 total = 0.0
 for n in numbers:
     assert n &gt;= 0.0, &#39;Data should only contain positive values&#39;
     total += n
-print &#39;total is:&#39;, total</code></pre>
+print &#39;total is:&#39;, total
+```
 
-<div class="out"><pre class='err'><code>---------------------------------------------------------------------------
+```
+---------------------------------------------------------------------------
 AssertionError                            Traceback (most recent call last)
 &lt;ipython-input-19-33d87ea29ae4&gt; in &lt;module&gt;()
       2 total = 0.0
@@ -80,7 +82,8 @@ AssertionError                            Traceback (most recent call last)
       5     total += n
       6 print &#39;total is:&#39;, total
 
-AssertionError: Data should only contain positive values</code></pre></div>
+AssertionError: Data should only contain positive values
+```
 
 
 Programs like the Firefox browser are full of assertions:
@@ -101,8 +104,8 @@ and 1.0 units long on its longest axis.
 This function does that,
 but checks that its input is correctly formatted and that its result makes sense:
 
-
-<pre class="in"><code>def normalize_rectangle(rect):
+```
+def normalize_rectangle(rect):
     &#39;&#39;&#39;Normalizes a rectangle so that it is at the origin and 1.0 units long on its longest axis.&#39;&#39;&#39;
     assert len(rect) == 4, &#39;Rectangles must contain 4 coordinates&#39;
     x0, y0, x1, y1 = rect
@@ -121,15 +124,17 @@ but checks that its input is correctly formatted and that its result makes sense
     assert 0 &lt; upper_x &lt;= 1.0, &#39;Calculated upper X coordinate invalid&#39;
     assert 0 &lt; upper_y &lt;= 1.0, &#39;Calculated upper Y coordinate invalid&#39;
 
-    return (0, 0, upper_x, upper_y)</code></pre>
-
+    return (0, 0, upper_x, upper_y)
+```
 
 The preconditions on lines 2, 4, and 5 catch invalid inputs:
 
+```
+print normalize_rectangle( (0.0, 1.0, 2.0) ) # missing the fourth coordinate
+```
 
-<pre class="in"><code>print normalize_rectangle( (0.0, 1.0, 2.0) ) # missing the fourth coordinate</code></pre>
-
-<div class="out"><pre class='err'><code>---------------------------------------------------------------------------
+```
+---------------------------------------------------------------------------
 AssertionError                            Traceback (most recent call last)
 &lt;ipython-input-21-3a97b1dcab70&gt; in &lt;module&gt;()
 ----&gt; 1 print normalize_rectangle( (0.0, 1.0, 2.0) ) # missing the fourth coordinate
@@ -141,12 +146,15 @@ AssertionError                            Traceback (most recent call last)
       4     x0, y0, x1, y1 = rect
       5     assert x0 &lt; x1, &#39;Invalid X coordinates&#39;
 
-AssertionError: Rectangles must contain 4 coordinates</code></pre></div>
+AssertionError: Rectangles must contain 4 coordinates
+```
 
+```
+print normalize_rectangle( (4.0, 2.0, 1.0, 5.0) ) # X axis inverted
+```
 
-<pre class="in"><code>print normalize_rectangle( (4.0, 2.0, 1.0, 5.0) ) # X axis inverted</code></pre>
-
-<div class="out"><pre class='err'><code>---------------------------------------------------------------------------
+```
+---------------------------------------------------------------------------
 AssertionError                            Traceback (most recent call last)
 &lt;ipython-input-22-f05ae7878a45&gt; in &lt;module&gt;()
 ----&gt; 1 print normalize_rectangle( (4.0, 2.0, 1.0, 5.0) ) # X axis inverted
@@ -158,27 +166,32 @@ AssertionError                            Traceback (most recent call last)
       6     assert y0 &lt; y1, &#39;Invalid Y coordinates&#39;
       7 
 
-AssertionError: Invalid X coordinates</code></pre></div>
-
+AssertionError: Invalid X coordinates
+```
 
 The post-conditions help us catch bugs by telling us when our calculations cannot have been correct.
 For example,
 if we normalize a rectangle that is taller than it is wide everything seems OK:
 
+```
+print normalize_rectangle( (0.0, 0.0, 1.0, 5.0) )
+```
 
-<pre class="in"><code>print normalize_rectangle( (0.0, 0.0, 1.0, 5.0) )</code></pre>
+```
+(0, 0, 0.2, 1.0)
 
-<div class="out"><pre class='out'><code>(0, 0, 0.2, 1.0)
-</code></pre></div>
+```
 
 
 but if we normalize one that's wider than it is tall,
 the assertion is triggered:
 
+```
+print normalize_rectangle( (0.0, 0.0, 5.0, 1.0) )
+```
 
-<pre class="in"><code>print normalize_rectangle( (0.0, 0.0, 5.0, 1.0) )</code></pre>
-
-<div class="out"><pre class='err'><code>---------------------------------------------------------------------------
+```
+---------------------------------------------------------------------------
 AssertionError                            Traceback (most recent call last)
 &lt;ipython-input-24-5f0ef7954aeb&gt; in &lt;module&gt;()
 ----&gt; 1 print normalize_rectangle( (0.0, 0.0, 5.0, 1.0) )
@@ -190,8 +203,8 @@ AssertionError                            Traceback (most recent call last)
      19 
      20     return (0, 0, upper_x, upper_y)
 
-AssertionError: Calculated upper Y coordinate invalid</code></pre></div>
-
+AssertionError: Calculated upper Y coordinate invalid
+```
 
 Re-reading our function,
 we realize that line 10 should divide `dy` by `dx` rather than `dx` by `dy`.
@@ -263,7 +276,7 @@ which are the time the interval started and ended.
 The output is the largest range that they all include:
 
 
-<img src="img/python-overlapping-ranges.svg" alt="Overlapping Ranges" />
+<img src="python-overlapping-ranges.svg" alt="Overlapping Ranges" />
 
 
 Most novice programmers would solve this problem like this:
@@ -293,19 +306,21 @@ Its advocates believe it produces better code faster because:
 Here are three test functions for `range_overlap`:
 
 
-<pre class="in"><code>assert range_overlap([ (0.0, 1.0) ]) == (0.0, 1.0)
+```
+assert range_overlap([ (0.0, 1.0) ]) == (0.0, 1.0)
 assert range_overlap([ (2.0, 3.0), (2.0, 4.0) ]) == (2.0, 3.0)
-assert range_overlap([ (0.0, 1.0), (0.0, 2.0), (-1.0, 1.0) ]) == (0.0, 1.0)</code></pre>
-
-<div class="out"><pre class='err'><code>---------------------------------------------------------------------------
+assert range_overlap([ (0.0, 1.0), (0.0, 2.0), (-1.0, 1.0) ]) == (0.0, 1.0)
+```
+```
+---------------------------------------------------------------------------
 AssertionError                            Traceback (most recent call last)
 &lt;ipython-input-25-d8be150fbef6&gt; in &lt;module&gt;()
       1 assert range_overlap([ (0.0, 1.0) ]) == (0.0, 1.0)
 ----&gt; 2 assert range_overlap([ (2.0, 3.0), (2.0, 4.0) ]) == (2.0, 3.0)
       3 assert range_overlap([ (0.0, 1.0), (0.0, 2.0), (-1.0, 1.0) ]) == (0.0, 1.0)
 
-AssertionError: </code></pre></div>
-
+AssertionError: 
+```
 
 The error is actually reassuring:
 we haven't written `range_overlap` yet,
@@ -362,32 +377,36 @@ With that decision made,
 we can finish writing our last two tests:
 
 
-<pre class="in"><code>assert range_overlap([ (0.0, 1.0), (5.0, 6.0) ]) == None
-assert range_overlap([ (0.0, 1.0), (1.0, 2.0) ]) == None</code></pre>
+```
+assert range_overlap([ (0.0, 1.0), (5.0, 6.0) ]) == None
+assert range_overlap([ (0.0, 1.0), (1.0, 2.0) ]) == None
+```
 
-<div class="out"><pre class='err'><code>---------------------------------------------------------------------------
+```
+---------------------------------------------------------------------------
 AssertionError                            Traceback (most recent call last)
 &lt;ipython-input-26-d877ef460ba2&gt; in &lt;module&gt;()
 ----&gt; 1 assert range_overlap([ (0.0, 1.0), (5.0, 6.0) ]) == None
       2 assert range_overlap([ (0.0, 1.0), (1.0, 2.0) ]) == None
 
-AssertionError: </code></pre></div>
-
+AssertionError:
+```
 
 Again,
 we get an error because we haven't written our function,
 but we're now ready to do so:
 
 
-<pre class="in"><code>def range_overlap(ranges):
+```
+def range_overlap(ranges):
     &#39;&#39;&#39;Return common overlap among a set of [low, high] ranges.&#39;&#39;&#39;
     lowest = 0.0
     highest = 1.0
     for (low, high) in ranges:
         lowest = max(lowest, low)
         highest = min(highest, high)
-    return (lowest, highest)</code></pre>
-
+    return (lowest, highest)
+```
 
 (Take a moment to think about why we use `max` to raise `lowest`
 and `min` to lower `highest`.)
@@ -396,21 +415,21 @@ but they're scattered across three different cells.
 To make running them easier,
 let's put them all in a function:
 
-
-<pre class="in"><code>def test_range_overlap():
+```
+def test_range_overlap():
     assert range_overlap([ (0.0, 1.0), (5.0, 6.0) ]) == None
     assert range_overlap([ (0.0, 1.0), (1.0, 2.0) ]) == None
     assert range_overlap([ (0.0, 1.0) ]) == (0.0, 1.0)
     assert range_overlap([ (2.0, 3.0), (2.0, 4.0) ]) == (2.0, 3.0)
-    assert range_overlap([ (0.0, 1.0), (0.0, 2.0), (-1.0, 1.0) ]) == (0.0, 1.0)</code></pre>
+    assert range_overlap([ (0.0, 1.0), (0.0, 2.0), (-1.0, 1.0) ]) == (0.0, 1.0)
+```
 
 
 We can now test `range_overlap` with a single function call:
 
-
-<pre class="in"><code>test_range_overlap()</code></pre>
-
-<div class="out"><pre class='err'><code>---------------------------------------------------------------------------
+```
+test_range_overlap()
+---------------------------------------------------------------------------
 AssertionError                            Traceback (most recent call last)
 &lt;ipython-input-29-cf9215c96457&gt; in &lt;module&gt;()
 ----&gt; 1 test_range_overlap()
@@ -422,7 +441,8 @@ AssertionError                            Traceback (most recent call last)
       4     assert range_overlap([ (0.0, 1.0) ]) == (0.0, 1.0)
       5     assert range_overlap([ (2.0, 3.0), (2.0, 4.0) ]) == (2.0, 3.0)
 
-AssertionError: </code></pre></div>
+AssertionError: 
+```
 
 
 The first of the tests that was supposed to produce `None` fails,
@@ -441,11 +461,9 @@ This violates another important rule of programming:
 We'll leave it as an exercise to fix `range_overlap`.
 
 
-<div class="challenges" markdown="1">
 #### Challenges
 
 1. Fix `range_overlap`. Re-run `test_range_overlap` after each change you make.
-</div>
 
 ### Debugging
 
@@ -667,7 +685,6 @@ it will actually take us *less* time to produce working programs,
 not more.
 
 
-<div class="keypoints" markdown="1">
 #### Key Points
 
 *   Program defensively, i.e., assume that errors are going to arise, and write code to detect them when they do.
@@ -681,7 +698,6 @@ not more.
 *   Change one thing at a time, and for a reason.
 *   Keep track of what you've done.
 *   Be humble.
-</div>
 
 
 #### Next Steps
