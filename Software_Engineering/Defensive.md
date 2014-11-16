@@ -38,7 +38,7 @@ is much greater than the time that measuring takes.
 *   Add assertions to programs that correctly check the program's state.
 *   Correctly add precondition and postcondition assertions to functions.
 *   Explain what test-driven development is, and use it when creating new functions.
-*   Explain why variables should be initialized using actual data values rather than arbitrary constants.
+*   Explain why variables should be initialised using actual data values rather than arbitrary constants.
 *   Debug code containing an error systematically.
 
 Here's a useful guide by [Software Sustainability Institute]( http://software.ac.uk/) on the things to be kept in mind while [developing you code defensibly] (http://software.ac.uk/resources/guides/defending-your-code-against-dependency-problems#node-252).
@@ -89,12 +89,9 @@ are there to check that the other 80-90% are working correctly.
 Broadly speaking,
 assertions fall into three categories:
 
--   A [precondition](../gloss.md#precondition) is something that must be true
- at the start of a function in order for it to work correctly.
--   A [postcondition](../gloss.md#postcondition) is something that
- the function guarantees is true when it finishes.
--   An [invariant](../gloss.md#invariant) is something that is always true
- at a particular point inside a piece of code.
+-  A [precondition](../gloss.md#precondition) is something that must be true at the start of a function in order for it to work correctly.
+-  A [postcondition](../gloss.md#postcondition) is something that the function guarantees is true when it finishes.
+-  An [invariant](../gloss.md#invariant) is something that is always true at a particular point inside a piece of code.
 
 For example,
 suppose we are representing rectangles using a tuple of four coordinates `(x0, y0, x1, y1)`.
