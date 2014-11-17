@@ -47,8 +47,8 @@ is much greater than the time that measuring takes.
 The first step toward getting the right answers from our programs
 is to assume that mistakes *will* happen
 and to guard against them.
-This is called [defensive programming](../gloss.html#defensive-programming),
-and the most common way to do it is to add [assertions](../gloss.html#assertion) to our code
+This is called [defensive programming](../gloss#defensive-programming),
+and the most common way to do it is to add [assertions](../gloss#assertion) to our code
 so that it checks itself as it runs.
 An assertion is simply a statement that something must be true at a certain point in a program.
 When Python sees one,
@@ -61,15 +61,17 @@ and prints the error message provided.
 For example,
 this piece of code halts as soon as the loop encounters a value that isn't positive:
 
-
-<pre class="in"><code>numbers = [1.5, 2.3, 0.7, -0.001, 4.4]
+```
+numbers = [1.5, 2.3, 0.7, -0.001, 4.4]
 total = 0.0
 for n in numbers:
     assert n &gt;= 0.0, &#39;Data should only contain positive values&#39;
     total += n
-print &#39;total is:&#39;, total</code></pre>
+print &#39;total is:&#39;, total
+```
 
-<div class="out"><pre class='err'><code>---------------------------------------------------------------------------
+```
+--------------------------------------------------------------------------
 AssertionError                            Traceback (most recent call last)
 &lt;ipython-input-19-33d87ea29ae4&gt; in &lt;module&gt;()
       2 total = 0.0
@@ -78,8 +80,8 @@ AssertionError                            Traceback (most recent call last)
       5     total += n
       6 print &#39;total is:&#39;, total
 
-AssertionError: Data should only contain positive values</code></pre></div>
-
+AssertionError: Data should only contain positive values
+```
 
 Programs like the Firefox browser are full of assertions:
 10-20% of the code they contain
@@ -87,9 +89,9 @@ are there to check that the other 80-90% are working correctly.
 Broadly speaking,
 assertions fall into three categories:
 
-* A [precondition](../gloss.html#precondition) is something that must be true at the start of a function in order for it to work correctly.
-* A [postcondition](../gloss.html#postcondition) is something that the function guarantees is true when it finishes.
-* An [invariant](../gloss.html#invariant) is something that is always true at a particular point inside a piece of code.
+* A [precondition](../gloss#precondition) is something that must be true at the start of a function in order for it to work correctly.
+* A [postcondition](../gloss#postcondition) is something that the function guarantees is true when it finishes.
+* An [invariant](../gloss#invariant) is something that is always true at a particular point inside a piece of code.
 
 For example,
 suppose we are representing rectangles using a tuple of four coordinates `(x0, y0, x1, y1)`.
@@ -99,8 +101,8 @@ and 1.0 units long on its longest axis.
 This function does that,
 but checks that its input is correctly formatted and that its result makes sense:
 
-
-<pre class="in"><code>def normalize_rectangle(rect):
+```
+def normalize_rectangle(rect):
     &#39;&#39;&#39;Normalizes a rectangle so that it is at the origin and 1.0 units long on its longest axis.&#39;&#39;&#39;
     assert len(rect) == 4, &#39;Rectangles must contain 4 coordinates&#39;
     x0, y0, x1, y1 = rect
@@ -119,15 +121,18 @@ but checks that its input is correctly formatted and that its result makes sense
     assert 0 &lt; upper_x &lt;= 1.0, &#39;Calculated upper X coordinate invalid&#39;
     assert 0 &lt; upper_y &lt;= 1.0, &#39;Calculated upper Y coordinate invalid&#39;
 
-    return (0, 0, upper_x, upper_y)</code></pre>
+    return (0, 0, upper_x, upper_y)
+```    
 
 
 The preconditions on lines 2, 4, and 5 catch invalid inputs:
 
+```
+print normalize_rectangle( (0.0, 1.0, 2.0) ) # missing the fourth coordinate
+```
 
-<pre class="in"><code>print normalize_rectangle( (0.0, 1.0, 2.0) ) # missing the fourth coordinate</code></pre>
-
-<div class="out"><pre class='err'><code>---------------------------------------------------------------------------
+```
+---------------------------------------------------------------------------
 AssertionError                            Traceback (most recent call last)
 &lt;ipython-input-21-3a97b1dcab70&gt; in &lt;module&gt;()
 ----&gt; 1 print normalize_rectangle( (0.0, 1.0, 2.0) ) # missing the fourth coordinate
@@ -139,12 +144,13 @@ AssertionError                            Traceback (most recent call last)
       4     x0, y0, x1, y1 = rect
       5     assert x0 &lt; x1, &#39;Invalid X coordinates&#39;
 
-AssertionError: Rectangles must contain 4 coordinates</code></pre></div>
-
-
-<pre class="in"><code>print normalize_rectangle( (4.0, 2.0, 1.0, 5.0) ) # X axis inverted</code></pre>
-
-<div class="out"><pre class='err'><code>---------------------------------------------------------------------------
+AssertionError: Rectangles must contain 4 coordinates
+```
+```
+print normalize_rectangle( (4.0, 2.0, 1.0, 5.0) ) # X axis inverted
+```
+```
+---------------------------------------------------------------------------
 AssertionError                            Traceback (most recent call last)
 &lt;ipython-input-22-f05ae7878a45&gt; in &lt;module&gt;()
 ----&gt; 1 print normalize_rectangle( (4.0, 2.0, 1.0, 5.0) ) # X axis inverted
@@ -156,27 +162,30 @@ AssertionError                            Traceback (most recent call last)
       6     assert y0 &lt; y1, &#39;Invalid Y coordinates&#39;
       7 
 
-AssertionError: Invalid X coordinates</code></pre></div>
-
+AssertionError: Invalid X coordinates
+```
 
 The post-conditions help us catch bugs by telling us when our calculations cannot have been correct.
 For example,
 if we normalize a rectangle that is taller than it is wide everything seems OK:
 
-
-<pre class="in"><code>print normalize_rectangle( (0.0, 0.0, 1.0, 5.0) )</code></pre>
-
-<div class="out"><pre class='out'><code>(0, 0, 0.2, 1.0)
-</code></pre></div>
+```
+print normalize_rectangle( (0.0, 0.0, 1.0, 5.0) )
+```
+```
+0, 0, 0.2, 1.0)
+```
 
 
 but if we normalize one that's wider than it is tall,
 the assertion is triggered:
 
+```
+print normalize_rectangle( (0.0, 0.0, 5.0, 1.0) )
+```
 
-<pre class="in"><code>print normalize_rectangle( (0.0, 0.0, 5.0, 1.0) )</code></pre>
-
-<div class="out"><pre class='err'><code>---------------------------------------------------------------------------
+```
+---------------------------------------------------------------------------
 AssertionError                            Traceback (most recent call last)
 &lt;ipython-input-24-5f0ef7954aeb&gt; in &lt;module&gt;()
 ----&gt; 1 print normalize_rectangle( (0.0, 0.0, 5.0, 1.0) )
@@ -188,8 +197,8 @@ AssertionError                            Traceback (most recent call last)
      19 
      20     return (0, 0, upper_x, upper_y)
 
-AssertionError: Calculated upper Y coordinate invalid</code></pre></div>
-
+AssertionError: Calculated upper Y coordinate invalid
+```
 
 Re-reading our function,
 we realize that line 10 should divide `dy` by `dx` rather than `dx` by `dy`.
@@ -207,17 +216,17 @@ a chance to check (consciously or otherwise)
 that their understanding matches what the code is doing.
 
 Most good programmers follow two rules when adding assertions to their code.
-The first is, "[fail early, fail often](../rules.html#fail-early-fail-often)".
+The first is, "[fail early, fail often](../rules#fail-early-fail-often)".
 The greater the distance between when and where an error occurs and when it's noticed,
 the harder the error will be to debug,
 so good code catches mistakes as early as possible.
 
-The second rule is, "[turn bugs into assertions or tests](../rules.html#turn-bugs-into-assertions-or-tests)".
+The second rule is, "[turn bugs into assertions or tests](../rules#turn-bugs-into-assertions-or-tests)".
 If you made a mistake in a piece of code,
 the odds are good that you have made other mistakes nearby,
 or will make the same mistake (or a related one)
 the next time you change it.
-Writing assertions to check that you haven't [regressed](../gloss.html#regression)
+Writing assertions to check that you haven't [regressed](../gloss#regression)
 (i.e., haven't re-introduced an old problem)
 can save a lot of time in the long run,
 and helps to warn people who are reading the code
@@ -229,7 +238,7 @@ that this bit is tricky.
 
 1. Suppose you are writing a function called `average` that calculates the average of the numbers in a list.
  What pre-conditions and post-conditions would you write for it?
- Compare your answer to your neighbor's:
+ Compare your answer to your neighbour's:
  can you think of a function that will past your tests but not hers or vice versa?
 
 2. Explain in words what the assertions in this code check,
@@ -251,7 +260,7 @@ that this bit is tricky.
 
 
 An assertion checks that something is true at a particular point in the program.
-The next step is to check the overall behavior of a piece of code,
+The next step is to check the overall behaviour of a piece of code,
 i.e.,
 to make sure that it produces the right output when it's given a particular input.
 For example,
@@ -278,7 +287,7 @@ there's a better way:
 3. If `range_overlap` produces any wrong answers, fix it and re-run the test functions.
 
 Writing the tests *before* writing the function they exercise
-is called [test-driven development](../gloss.html#test-driven-development) (TDD).
+is called [test-driven development](../gloss#test-driven-development) (TDD).
 Its advocates believe it produces better code faster because:
 
 1. If people write tests after writing the thing to be tested,
@@ -290,20 +299,21 @@ Its advocates believe it produces better code faster because:
 
 Here are three test functions for `range_overlap`:
 
-
-<pre class="in"><code>assert range_overlap([ (0.0, 1.0) ]) == (0.0, 1.0)
+```
+assert range_overlap([ (0.0, 1.0) ]) == (0.0, 1.0)
 assert range_overlap([ (2.0, 3.0), (2.0, 4.0) ]) == (2.0, 3.0)
-assert range_overlap([ (0.0, 1.0), (0.0, 2.0), (-1.0, 1.0) ]) == (0.0, 1.0)</code></pre>
-
-<div class="out"><pre class='err'><code>---------------------------------------------------------------------------
+assert range_overlap([ (0.0, 1.0), (0.0, 2.0), (-1.0, 1.0) ]) == (0.0, 1.0)
+```
+```
+---------------------------------------------------------------------------
 AssertionError                            Traceback (most recent call last)
 &lt;ipython-input-25-d8be150fbef6&gt; in &lt;module&gt;()
       1 assert range_overlap([ (0.0, 1.0) ]) == (0.0, 1.0)
 ----&gt; 2 assert range_overlap([ (2.0, 3.0), (2.0, 4.0) ]) == (2.0, 3.0)
       3 assert range_overlap([ (0.0, 1.0), (0.0, 2.0), (-1.0, 1.0) ]) == (0.0, 1.0)
 
-AssertionError: </code></pre></div>
-
+AssertionError: 
+```
 
 The error is actually reassuring:
 we haven't written `range_overlap` yet,
@@ -359,34 +369,37 @@ and means "nothing here".
 With that decision made,
 we can finish writing our last two tests:
 
+```
+assert range_overlap([ (0.0, 1.0), (5.0, 6.0) ]) == None
+assert range_overlap([ (0.0, 1.0), (1.0, 2.0) ]) == None
+```
 
-<pre class="in"><code>assert range_overlap([ (0.0, 1.0), (5.0, 6.0) ]) == None
-assert range_overlap([ (0.0, 1.0), (1.0, 2.0) ]) == None</code></pre>
-
-<div class="out"><pre class='err'><code>---------------------------------------------------------------------------
+```
+---------------------------------------------------------------------------
 AssertionError                            Traceback (most recent call last)
 &lt;ipython-input-26-d877ef460ba2&gt; in &lt;module&gt;()
 ----&gt; 1 assert range_overlap([ (0.0, 1.0), (5.0, 6.0) ]) == None
       2 assert range_overlap([ (0.0, 1.0), (1.0, 2.0) ]) == None
 
-AssertionError: </code></pre></div>
+AssertionError: 
+```
 
 
 Again,
 we get an error because we haven't written our function,
 but we're now ready to do so:
 
-
-<pre class="in"><code>def range_overlap(ranges):
+```
+def range_overlap(ranges):
     &#39;&#39;&#39;Return common overlap among a set of [low, high] ranges.&#39;&#39;&#39;
     lowest = 0.0
     highest = 1.0
     for (low, high) in ranges:
         lowest = max(lowest, low)
         highest = min(highest, high)
-    return (lowest, highest)</code></pre>
-
-
+    return (lowest, highest)
+```    
+    
 (Take a moment to think about why we use `max` to raise `lowest`
 and `min` to lower `highest`.)
 We'd now like to re-run our tests,
@@ -394,21 +407,22 @@ but they're scattered across three different cells.
 To make running them easier,
 let's put them all in a function:
 
-
-<pre class="in"><code>def test_range_overlap():
+```
+def test_range_overlap():
     assert range_overlap([ (0.0, 1.0), (5.0, 6.0) ]) == None
     assert range_overlap([ (0.0, 1.0), (1.0, 2.0) ]) == None
     assert range_overlap([ (0.0, 1.0) ]) == (0.0, 1.0)
     assert range_overlap([ (2.0, 3.0), (2.0, 4.0) ]) == (2.0, 3.0)
-    assert range_overlap([ (0.0, 1.0), (0.0, 2.0), (-1.0, 1.0) ]) == (0.0, 1.0)</code></pre>
-
+    assert range_overlap([ (0.0, 1.0), (0.0, 2.0), (-1.0, 1.0) ]) == (0.0, 1.0)
+```    
 
 We can now test `range_overlap` with a single function call:
 
-
-<pre class="in"><code>test_range_overlap()</code></pre>
-
-<div class="out"><pre class='err'><code>---------------------------------------------------------------------------
+```
+test_range_overlap()
+```
+```
+---------------------------------------------------------------------------
 AssertionError                            Traceback (most recent call last)
 &lt;ipython-input-29-cf9215c96457&gt; in &lt;module&gt;()
 ----&gt; 1 test_range_overlap()
@@ -420,8 +434,8 @@ AssertionError                            Traceback (most recent call last)
       4     assert range_overlap([ (0.0, 1.0) ]) == (0.0, 1.0)
       5     assert range_overlap([ (2.0, 3.0), (2.0, 4.0) ]) == (2.0, 3.0)
 
-AssertionError: </code></pre></div>
-
+AssertionError: 
+```
 
 The first of the tests that was supposed to produce `None` fails,
 so we know there's something wrong with our function.
@@ -435,15 +449,15 @@ and if we trace the behavior of the function with that input,
 we realize that we're initializing `lowest` and `highest` to 0.0 and 1.0 respectively,
 regardless of the input values.
 This violates another important rule of programming:
-"[always initialize from data](../rules.html#always-initialize-from-data)".
+"[always initialize from data](../rules#always-initialize-from-data)".
 We'll leave it as an exercise to fix `range_overlap`.
 
 
-<div class="challenges" markdown="1">
+
 #### Challenges
 
 1. Fix `range_overlap`. Re-run `test_range_overlap` after each change you make.
-</div>
+
 
 ### Debugging
 
@@ -461,7 +475,7 @@ and most follow some variation on the rules explained below.
 #### Know What It's Supposed to Do
 
 The first step in debugging something is to
-[know what it's supposed to do](../rules.html#know-what-its-supposed-to-do).
+[know what it's supposed to do](../rules#know-what-its-supposed-to-do).
 "My program doesn't work" isn't good enough:
 in order to diagnose and fix problems,
 we need to be able to tell correct output from incorrect.
@@ -497,7 +511,7 @@ scientists tend to do the following:
  our first test should hold temperature, precipitation, and other factors constant.
 
 3. *Compare to an oracle.*
- A [test oracle](../gloss.html#test-oracle) is something&mdash;experimental data,
+ A [test oracle](../gloss#test-oracle) is something&mdash;experimental data,
  an older program whose results are trusted,
  or even a human expert&mdash;against which we can compare the results of our new program.
  If we have a test oracle,
@@ -529,7 +543,7 @@ scientists tend to do the following:
 
 We can only debug something when it fails,
 so the second step is always to find a test case that
-[makes it fail every time](../rules.html#make-it-fail-every-time).
+[makes it fail every time](../rules#make-it-fail-every-time).
 The "every time" part is important because
 few things are more frustrating than debugging an intermittent problem:
 if we have to call a function a dozen times to get a single failure,
@@ -556,7 +570,7 @@ we can only do three experiments an hour.
 That doesn't must mean we'll get less data in more time:
 we're also more likely to be distracted by other things as we wait for our program to fail,
 which means the time we *are* spending on the problem is less focused.
-It's therefore critical to [make it fail fast](../rules.html#make-it-fail-fast).
+It's therefore critical to [make it fail fast](../rules#make-it-fail-fast).
 
 As well as making the program fail fast in time,
 we want to make it fail fast in space,
@@ -583,7 +597,7 @@ Replacing random chunks of code is unlikely to do much good.
 if you got it wrong the first time,
 you'll probably get it wrong the second and third as well.)
 Good programmers therefore
-[change one thing at a time, for a reason](../rules.html#change-one-thing-at-a-time)
+[change one thing at a time, for a reason](../rules#change-one-thing-at-a-time)
 They are either trying to gather more information
 ("is the bug still there if we change the order of the loops?")
 or test a fix
@@ -597,7 +611,7 @@ the harder it is to know what's responsible for what
 (those N<sup>2</sup> interactions again).
 And we should re-run *all* of our tests:
 more than half of fixes made to code introduce (or re-introduce) bugs,
-so re-running all of our tests tells us whether we have [regressed](../gloss.html#regression).
+so re-running all of our tests tells us whether we have [regressed](../gloss#regression).
 
 #### Keep Track of What You've Done
 
@@ -607,7 +621,7 @@ and so that they don't waste time repeating the same experiments
 or running ones whose results won't be interesting.
 Similarly,
 debugging works best when we
-[keep track of what we've done](../rules.html#keep-track-of-what-youve-done)
+[keep track of what we've done](../rules#keep-track-of-what-youve-done)
 and how well it worked.
 If we find ourselves asking,
 "Did left followed by right with an odd number of lines cause the crash?
@@ -634,7 +648,7 @@ and we're better able to give them the information they need to be useful.
 
 And speaking of help:
 if we can't find a bug in 10 minutes,
-we should [be humble](../rules.html#be-humble) and ask for help.
+we should [be humble](../rules#be-humble) and ask for help.
 Just explaining the problem aloud is often useful,
 since hearing what we're thinking helps us spot inconsistencies and hidden assumptions.
 
@@ -657,7 +671,7 @@ quickly turns into not making the mistake at all.
 
 And that is what makes us most productive in the long run.
 As the saying goes,
-"[A week of hard work can sometimes save you an hour of thought](../rules.html#week-hard-work-hour-thought)."
+"[A week of hard work can sometimes save you an hour of thought](../rules#week-hard-work-hour-thought)."
 If we train ourselves to avoid making some kinds of mistakes,
 to break our code into modular, testable chunks,
 and to turn every assumption (or mistake) into an assertion,
