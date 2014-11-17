@@ -14,6 +14,8 @@ so that they don't have to type the same things over and over again.
 
 1.  [Introducing the Shell](1_Intro_Shell.md)
 2.  [Files and Directories](2_FileDir.md)
-3.  [Creating Things](4_Create.md)
-4.  [Pipes and Filters](3_Pipes-Filters.md)
-
+3.  [Pipes and Filters](3_Pipes-Filters.md)
+4.  [Creating Things](4_Create.md)
+5.  [Finding Things](5_Finding_Things.md)
+6.  [Creating Shell Scripts](6_Shell_Scripting.md)
+7.  [Looping Concepts in Shell](7_Loop.md)
