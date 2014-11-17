@@ -87,12 +87,9 @@ are there to check that the other 80-90% are working correctly.
 Broadly speaking,
 assertions fall into three categories:
 
--   A [precondition](../gloss.html#precondition) is something that must be true
- at the start of a function in order for it to work correctly.
--   A [postcondition](../gloss.html#postcondition) is something that
- the function guarantees is true when it finishes.
--   An [invariant](../gloss.html#invariant) is something that is always true
- at a particular point inside a piece of code.
+* A [precondition](../gloss.html#precondition) is something that must be true at the start of a function in order for it to work correctly.
+* A [postcondition](../gloss.html#postcondition) is something that the function guarantees is true when it finishes.
+* An [invariant](../gloss.html#invariant) is something that is always true at a particular point inside a piece of code.
 
 For example,
 suppose we are representing rectangles using a tuple of four coordinates `(x0, y0, x1, y1)`.
@@ -210,12 +207,12 @@ a chance to check (consciously or otherwise)
 that their understanding matches what the code is doing.
 
 Most good programmers follow two rules when adding assertions to their code.
-The first is, "[fail early, fail often](../../rules.html#fail-early-fail-often)".
+The first is, "[fail early, fail often](../rules.html#fail-early-fail-often)".
 The greater the distance between when and where an error occurs and when it's noticed,
 the harder the error will be to debug,
 so good code catches mistakes as early as possible.
 
-The second rule is, "[turn bugs into assertions or tests](../../rules.html#turn-bugs-into-assertions-or-tests)".
+The second rule is, "[turn bugs into assertions or tests](../rules.html#turn-bugs-into-assertions-or-tests)".
 If you made a mistake in a piece of code,
 the odds are good that you have made other mistakes nearby,
 or will make the same mistake (or a related one)
@@ -438,7 +435,7 @@ and if we trace the behavior of the function with that input,
 we realize that we're initializing `lowest` and `highest` to 0.0 and 1.0 respectively,
 regardless of the input values.
 This violates another important rule of programming:
-"[always initialize from data](../../rules.html#always-initialize-from-data)".
+"[always initialize from data](../rules.html#always-initialize-from-data)".
 We'll leave it as an exercise to fix `range_overlap`.
 
 
@@ -464,7 +461,7 @@ and most follow some variation on the rules explained below.
 #### Know What It's Supposed to Do
 
 The first step in debugging something is to
-[know what it's supposed to do](../../rules.html#know-what-its-supposed-to-do).
+[know what it's supposed to do](../rules.html#know-what-its-supposed-to-do).
 "My program doesn't work" isn't good enough:
 in order to diagnose and fix problems,
 we need to be able to tell correct output from incorrect.
@@ -532,7 +529,7 @@ scientists tend to do the following:
 
 We can only debug something when it fails,
 so the second step is always to find a test case that
-[makes it fail every time](../../rules.html#make-it-fail-every-time).
+[makes it fail every time](../rules.html#make-it-fail-every-time).
 The "every time" part is important because
 few things are more frustrating than debugging an intermittent problem:
 if we have to call a function a dozen times to get a single failure,
@@ -559,7 +556,7 @@ we can only do three experiments an hour.
 That doesn't must mean we'll get less data in more time:
 we're also more likely to be distracted by other things as we wait for our program to fail,
 which means the time we *are* spending on the problem is less focused.
-It's therefore critical to [make it fail fast](../../rules.html#make-it-fail-fast).
+It's therefore critical to [make it fail fast](../rules.html#make-it-fail-fast).
 
 As well as making the program fail fast in time,
 we want to make it fail fast in space,
@@ -586,7 +583,7 @@ Replacing random chunks of code is unlikely to do much good.
 if you got it wrong the first time,
 you'll probably get it wrong the second and third as well.)
 Good programmers therefore
-[change one thing at a time, for a reason](../../rules.html#change-one-thing-at-a-time)
+[change one thing at a time, for a reason](../rules.html#change-one-thing-at-a-time)
 They are either trying to gather more information
 ("is the bug still there if we change the order of the loops?")
 or test a fix
@@ -610,7 +607,7 @@ and so that they don't waste time repeating the same experiments
 or running ones whose results won't be interesting.
 Similarly,
 debugging works best when we
-[keep track of what we've done](../../rules.html#keep-track-of-what-youve-done)
+[keep track of what we've done](../rules.html#keep-track-of-what-youve-done)
 and how well it worked.
 If we find ourselves asking,
 "Did left followed by right with an odd number of lines cause the crash?
@@ -637,7 +634,7 @@ and we're better able to give them the information they need to be useful.
 
 And speaking of help:
 if we can't find a bug in 10 minutes,
-we should [be humble](../../rules.html#be-humble) and ask for help.
+we should [be humble](../rules.html#be-humble) and ask for help.
 Just explaining the problem aloud is often useful,
 since hearing what we're thinking helps us spot inconsistencies and hidden assumptions.
 
@@ -660,7 +657,7 @@ quickly turns into not making the mistake at all.
 
 And that is what makes us most productive in the long run.
 As the saying goes,
-"[A week of hard work can sometimes save you an hour of thought](../../rules.html#week-hard-work-hour-thought)."
+"[A week of hard work can sometimes save you an hour of thought](../rules.html#week-hard-work-hour-thought)."
 If we train ourselves to avoid making some kinds of mistakes,
 to break our code into modular, testable chunks,
 and to turn every assumption (or mistake) into an assertion,
