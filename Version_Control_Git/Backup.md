@@ -394,7 +394,9 @@ but not yet committed.
 `git add` puts things in this area,
 and `git commit` then copies them to long-term storage (as a commit):
 
+<div>
 <img src="img/git-staging-area.svg" alt="The Git Staging Area" />
+</div>
 
 Let's watch as our changes to a file move from our editor
 to the staging area
@@ -511,7 +513,9 @@ we first need to add the changed files to the staging area
 (`git add`) and then commit the staged changes to the
 repository (`git commit`):
 
+<div>
 <img src="img/git-committing.svg" alt="The Git Commit Workflow" />
+</div>
 
 ### Exploring History
 
@@ -663,12 +667,16 @@ the commit in which we made the change we're trying to get rid of.
 In the example below, we want retrieve the state from before the most
 recent commit (`HEAD~1`), which is revision `f22b25e`:
 
+<div>
 <img src="img/git-checkout.svg" alt="Git Checkout" />
+</div>
 
 The following diagram illustrates what the history of a file might look
 like (moving back from `HEAD`, the most recently committed version):
 
+<div>
 <img src="img/git-when-revisions-updated.svg" alt="When Git Updates Revision Numbers" />
+</div>
 
 > #### Simplifying the Common Case
 >
