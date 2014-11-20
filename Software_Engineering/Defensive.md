@@ -245,7 +245,7 @@ that this bit is tricky.
 1. Suppose you are writing a function called `average` that calculates the average of the numbers in a list.
  What pre-conditions and post-conditions would you write for it?
  Compare your answer to your neighbor's:
- can you think of a function that will past your tests but not hers or vice versa?
+ can you think of a function that will pass your tests but not hers or vice versa?
 
 2. Explain in words what the assertions in this code check,
  and for each one,
